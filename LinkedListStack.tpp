@@ -24,6 +24,12 @@ LinkedListStack<T>::~LinkedListStack() {
 template <typename T>
 void LinkedListStack<T>::clear() {
     // TO DO: Delete all the elements in the stack
+    Node* cur = top;
+    if (top == nullptr) throw string ("error: LinkedListStack is empty!");
+
+    while (cur != nullptr){
+        cur = cur -> next;
+    }
 }
 
 template <typename T>
