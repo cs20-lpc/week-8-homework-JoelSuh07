@@ -31,15 +31,14 @@ void LinkedListStack<T>::clear() {
         cur = top;
         top = top -> next;
         delete cur;
-        --this->length;
     }
+
+    this->length = 0;
 }
 
 template <typename T>
 void LinkedListStack<T>::copy(const LinkedListStack<T>& copyObj) {
     // TO DO: Implement copy 
-    if (copyObj.isEmpty()) throw string("error: source stack is empty. No elements to copy from.");
-
     this->clear(); //clears destination stack
 
     if (copyObj.isEmpty()) return; // if source is empty just like destination, we are done
@@ -54,10 +53,9 @@ void LinkedListStack<T>::copy(const LinkedListStack<T>& copyObj) {
     // after done traversing and pushing, need to put it into this object
 
     while (!tempStack.isEmpty()){
-        this.push(tempStack.pop());
+        this.push(tempStack.top());
+        tempStack.pop();
     }
-
-    this.print();
 }
 
 template <typename T>
@@ -105,32 +103,34 @@ void LinkedListStack<T>::rotate(typename Stack<T>::Direction dir) {
     // TO DO: Implement rotate
     if (isEmpty()) throw string ("error: stack is empty. No elements to rotate.");
 
-    if (dir == Stack<T>::RIGHT){ //move the top(tail) to the head. Pushing the nodes to the right
+    if (this->getLength() < 2) return;
 
-        Node<T>* oldTop = top; //saving top(tail) to assign later
+    if (dir == Stack<T>::RIGHT){ //move the top to the bottom. Pushing the nodes to the right
+
+        Node<T>* oldTop = top; //saving top to assign later
         top = top->next;
         Node<T>* cur = top;
 
         while (cur -> next != nullptr){
-            cur = cur -> next; // traverse from tail to head until last node
+            cur = cur -> next; // traverse from top to bottom until last node
 
+        }
+        
         cur -> next = oldTop;
         oldTop -> next = nullptr;
-        }
-    } else if (dir == Stack<T>::LEFT){ //move the head to top(tail). Pushing the nodes all to the left
+
+    } else if (dir == Stack<T>::LEFT){ //move the bottom to top. Pushing the nodes all to the left
         Node<T>* prev = nullptr;
         Node<T>* cur = top;
 
 
-        while (cur -> next != nullptr){ // traversing from top(tail) to head
+        while (cur -> next != nullptr){ // traversing from top to bottom
             prev = cur;
             cur = cur -> next;
-            cur = cur->next;
         } // prev will be 2nd last, cur will be last
 
         prev -> next = nullptr;
         cur -> next = top;
-        cur = top;
 
         top = cur;
     }
