@@ -90,10 +90,6 @@ void LinkedListStack<T>::pop() {
 
     delete cur;
     --this->length;
-
-    cout << "Linked List Stack after popping: " << endl;
-
-    this->print();
 }
 
 template <typename T>
@@ -102,10 +98,6 @@ void LinkedListStack<T>::push(const T& elem) {
     newNode->next = top;
     top = newNode;
     this->length++;
-
-    cout << "Linked List Stack after pushing: " << endl;
-
-    this->print();
 }
 
 template <typename T>

@@ -75,9 +75,6 @@ void ArrayStack<T>::pop() {
     }
 
     this->length--;
-
-    cout << "Array Stack after popping: " << endl;
-    this->print();
 }
 
 template <typename T>
@@ -91,9 +88,6 @@ void ArrayStack<T>::push(const T& elem) {
     }
 
     buffer[this->length++] = elem;
-    
-    cout << "Array Stack after pushing: " << endl;
-    this->print();
 }
 
 template <typename T>
