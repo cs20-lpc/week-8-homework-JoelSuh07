@@ -45,9 +45,9 @@ void LinkedListStack<T>::copy(const LinkedListStack<T>& copyObj) {
     if (copyObj.isEmpty()) return; // if source is empty just like destination, we are done
 
     LinkedListStack<T> tempStack; //temporary stack to store elements but in reverse order
-    Node<T>* current = copyObj.top; //pointer to traverse
+    Node<T>* curr = copyObj.top; //pointer to traverse
 
-    while (current != nullptr){
+    while (curr != nullptr){
         tempStack.push(curr -> data);
         curr = curr -> next; // traversing and pushing the elements into tempStack
     }
@@ -91,9 +91,9 @@ void LinkedListStack<T>::pop() {
     delete cur;
     --this->length;
 
-    cout << "Stack after popping: " << endl;
+    cout << "Linked List Stack after popping: " << endl;
 
-    this.print();
+    this->print();
 }
 
 template <typename T>
@@ -102,6 +102,10 @@ void LinkedListStack<T>::push(const T& elem) {
     newNode->next = top;
     top = newNode;
     this->length++;
+
+    cout << "Linked List Stack after pushing: " << endl;
+
+    this->print();
 }
 
 template <typename T>
@@ -109,7 +113,7 @@ void LinkedListStack<T>::rotate(typename Stack<T>::Direction dir) {
     // TO DO: Implement rotate
     if (isEmpty()) throw string ("error: stack is empty. No elements to rotate.");
 
-    if (dir == RIGHT){ //move the top(tail) to the head. Pushing the nodes to the right
+    if (dir == Stack<T>::RIGHT){ //move the top(tail) to the head. Pushing the nodes to the right
 
         Node<T>* oldTop = top; //saving top(tail) to assign later
         top = top->next;
@@ -121,7 +125,7 @@ void LinkedListStack<T>::rotate(typename Stack<T>::Direction dir) {
         cur -> next = oldTop;
         oldTop -> next = nullptr;
         }
-    } else if (dir == LEFT){ //move the head to top(tail). Pushing the nodes all to the left
+    } else if (dir == Stack<T>::LEFT){ //move the head to top(tail). Pushing the nodes all to the left
         Node<T>* prev = nullptr;
         Node<T>* cur = top;
 
@@ -147,7 +151,6 @@ void LinkedListStack<T>::print() {
         cout << "Stack is empty, no elements to display.\n";
     }
     else {
-        Node<T> *curr = top;
         Node<T>* curr = top;
         while (curr != nullptr){
             cout <<  curr->data  << "\t";
