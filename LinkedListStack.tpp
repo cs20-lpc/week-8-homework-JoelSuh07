@@ -25,33 +25,39 @@ LinkedListStack<T>::~LinkedListStack() {
 template <typename T>
 void LinkedListStack<T>::clear() {
     // TO DO: Delete all the elements in the stack
-<<<<<<< HEAD
-    Node* cur = top;
-    if (top == nullptr) throw string ("error: LinkedListStack is empty!");
-
-    while (cur != nullptr){
-        cur = cur -> next;
-=======
-    Node* cur;
     Node<T>* cur;
-
-    if (isEmpty()) throw string ("error: stack is empty. No elements to clear.");
 
     while (top != nullptr) {
         cur = top;
         top = top -> next;
-        top = top->next;
         delete cur;
-        --this->length--;
-        this->length--;
->>>>>>> f40b850bf32a7447938297c00ea558ce508d9b0d
+        --this->length;
     }
 }
 
 template <typename T>
 void LinkedListStack<T>::copy(const LinkedListStack<T>& copyObj) {
     // TO DO: Implement copy 
-    
+    if (copyObj.isEmpty()) throw string("error: source stack is empty. No elements to copy from.");
+
+    this->clear(); //clears destination stack
+
+    if (copyObj.isEmpty()) return; // if source is empty just like destination, we are done
+
+    LinkedListStack<T> tempStack; //temporary stack to store elements but in reverse order
+    Node<T>* current = copyObj.top; //pointer to traverse
+
+    while (current != nullptr){
+        tempStack.push(curr -> data);
+        curr = curr -> next; // traversing and pushing the elements into tempStack
+    }
+    // after done traversing and pushing, need to put it into this object
+
+    while (!tempStack.isEmpty()){
+        this.push(tempStack.pop());
+    }
+
+    this.print();
 }
 
 template <typename T>
@@ -79,25 +85,15 @@ void LinkedListStack<T>::pop() {
 
     if (isEmpty()) throw string ("error: stack is empty. No elements to pop.");
 
-    Node* cur = top;
-    top = top -> next;
     Node<T>* cur = top;
     top = top->next;
 
     delete cur;
-    --this->length--;
-    this->length--;
+    --this->length;
 
     cout << "Stack after popping: " << endl;
 
-    while (top != nullptr){
-        cout << top -> data << "\t->\t";
-        top = top -> next;   
-    Node<T>* temp = top;
-    while (temp != nullptr){
-        cout << temp->data << "\t->\t";
-        temp = temp->next;   
-    }
+    this.print();
 }
 
 template <typename T>
@@ -114,32 +110,23 @@ void LinkedListStack<T>::rotate(typename Stack<T>::Direction dir) {
     if (isEmpty()) throw string ("error: stack is empty. No elements to rotate.");
 
     if (dir == RIGHT){ //move the top(tail) to the head. Pushing the nodes to the right
-        Node* oldTop = top; //saving top(tail) to assign later
-        Node* top = top -> next;
-        Node* cur = top;
+
         Node<T>* oldTop = top; //saving top(tail) to assign later
         top = top->next;
         Node<T>* cur = top;
 
         while (cur -> next != nullptr){
             cur = cur -> next; // traverse from tail to head until last node
-        while (cur->next != nullptr){
-            cur = cur->next; // traverse from tail to head until last node
-        }
 
         cur -> next = oldTop;
         oldTop -> next = nullptr;
-        cur->next = oldTop;
-        oldTop->next = nullptr;
-
+        }
     } else if (dir == LEFT){ //move the head to top(tail). Pushing the nodes all to the left
-        Node* prev = nullptr;
-        Node* cur = top;
         Node<T>* prev = nullptr;
         Node<T>* cur = top;
 
+
         while (cur -> next != nullptr){ // traversing from top(tail) to head
-        while (cur->next != nullptr){ // traversing from top(tail) to head
             prev = cur;
             cur = cur -> next;
             cur = cur->next;
@@ -148,8 +135,7 @@ void LinkedListStack<T>::rotate(typename Stack<T>::Direction dir) {
         prev -> next = nullptr;
         cur -> next = top;
         cur = top;
-        prev->next = nullptr;
-        cur->next = top;
+
         top = cur;
     }
 }
