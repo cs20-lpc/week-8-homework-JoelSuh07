@@ -101,6 +101,7 @@ void ArrayStack<T>::print() {
             cout << (i == this->length - 1 ? "top\t" : "\t")
                       << buffer[i];
         }
+        cout << endl;
     }
 }
 
