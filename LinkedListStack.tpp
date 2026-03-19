@@ -84,7 +84,7 @@ void LinkedListStack<T>::pop() {
     if (isEmpty()) throw string ("error: stack is empty. No elements to pop.");
 
     Node<T>* cur = top;
-    top = top->next;
+    top = top->next; // so top is not nullptr
 
     delete cur;
     --this->length;
